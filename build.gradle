@@ -1,45 +1,81 @@
 plugins {
-	id 'org.jetbrains.kotlin.jvm' version '2.2.21'
-	id 'org.jetbrains.kotlin.plugin.spring' version '2.2.21'
-	id 'org.springframework.boot' version '4.0.6'
-	id 'io.spring.dependency-management' version '1.1.7'
+    id 'org.jetbrains.kotlin.jvm' version '2.2.21'
+    id 'org.jetbrains.kotlin.plugin.spring' version '2.2.21'
+    id 'org.springframework.boot' version '4.0.6'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id 'nu.studer.jooq' version '9.0'
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
-	}
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.jetbrains.kotlin:kotlin-reflect'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect'
 
-	// Database
-	runtimeOnly 'org.postgresql:postgresql'
+    // Database
+    runtimeOnly 'org.postgresql:postgresql'
 
-	// Flyway Migration
-	implementation 'org.flywaydb.spring:flyway-spring-boot-starter:10.0.1'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.jetbrains.kotlin:kotlin-test-junit5'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.jetbrains.kotlin:kotlin-test-junit5'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // jOOQ: generator-time JDBC driver (used by the code generator) and jOOQ runtime
+    jooqGenerator 'org.postgresql:postgresql:42.6.0'
+    implementation 'org.jooq:jooq:3.19.32'
+}
+
+// Ensure generation runs before compilation
+tasks.named('compileKotlin') {
+    dependsOn tasks.named('generateJooq')
 }
 
 kotlin {
-	compilerOptions {
-		freeCompilerArgs.addAll '-Xjsr305=strict', '-Xannotation-default-target=param-property'
-	}
+    compilerOptions {
+        freeCompilerArgs.addAll '-Xjsr305=strict', '-Xannotation-default-target=param-property'
+    }
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
+}
+
+jooq {
+    version = '3.19.32'
+
+    configurations {
+        create('main') {
+            generationTool {
+                jdbc {
+                    driver = 'org.postgresql.Driver'
+                    url = 'jdbc:postgresql://localhost:5432/book_manager'
+                    user = 'myuser'
+                    password = 'mypassword'
+                }
+
+                generator {
+                    database {
+                        name = 'org.jooq.meta.postgres.PostgresDatabase'
+                        inputSchema = 'public'
+                        includes = '.*'
+                    }
+                    target {
+                        packageName = 'com.book_manager.jooq'
+                        directory = 'src/main/java'
+                    }
+                }
+            }
+        }
+    }
 }
