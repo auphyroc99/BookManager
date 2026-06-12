@@ -61,7 +61,7 @@ public class Book extends TableImpl<BookRecord> {
     /**
      * The column <code>public.book.id</code>.
      */
-    public final TableField<BookRecord, Integer> ID = createField(DSL.name("id"), SQLDataType.INTEGER.nullable(false).identity(true), this, "");
+    public final TableField<BookRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>public.book.title</code>.
@@ -161,8 +161,8 @@ public class Book extends TableImpl<BookRecord> {
     }
 
     @Override
-    public Identity<BookRecord, Integer> getIdentity() {
-        return (Identity<BookRecord, Integer>) super.getIdentity();
+    public Identity<BookRecord, Long> getIdentity() {
+        return (Identity<BookRecord, Long>) super.getIdentity();
     }
 
     @Override

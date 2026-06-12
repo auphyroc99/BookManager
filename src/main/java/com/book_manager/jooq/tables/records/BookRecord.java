@@ -24,15 +24,15 @@ public class BookRecord extends UpdatableRecordImpl<BookRecord> {
     /**
      * Setter for <code>public.book.id</code>.
      */
-    public void setId(Integer value) {
+    public void setId(Long value) {
         set(0, value);
     }
 
     /**
      * Getter for <code>public.book.id</code>.
      */
-    public Integer getId() {
-        return (Integer) get(0);
+    public Long getId() {
+        return (Long) get(0);
     }
 
     /**
@@ -124,7 +124,7 @@ public class BookRecord extends UpdatableRecordImpl<BookRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Record1<Integer> key() {
+    public Record1<Long> key() {
         return (Record1) super.key();
     }
 
@@ -142,7 +142,7 @@ public class BookRecord extends UpdatableRecordImpl<BookRecord> {
     /**
      * Create a detached, initialised BookRecord
      */
-    public BookRecord(Integer id, String title, Integer price, BookPublicationStatus publicationStatus, Integer version, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public BookRecord(Long id, String title, Integer price, BookPublicationStatus publicationStatus, Integer version, LocalDateTime createdAt, LocalDateTime updatedAt) {
         super(Book.BOOK);
 
         setId(id);
