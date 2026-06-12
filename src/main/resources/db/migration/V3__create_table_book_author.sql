@@ -1,7 +1,7 @@
 CREATE TABLE book_author (
     id SERIAL PRIMARY KEY,
-    book_id INTEGER NOT NULL,
-    author_id INTEGER NOT NULL,
+    book_id BIGINT NOT NULL,
+    author_id BIGINT NOT NULL,
     author_order INTEGER NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

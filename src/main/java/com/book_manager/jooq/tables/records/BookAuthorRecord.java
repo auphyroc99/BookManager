@@ -37,29 +37,29 @@ public class BookAuthorRecord extends UpdatableRecordImpl<BookAuthorRecord> {
     /**
      * Setter for <code>public.book_author.book_id</code>.
      */
-    public void setBookId(Integer value) {
+    public void setBookId(Long value) {
         set(1, value);
     }
 
     /**
      * Getter for <code>public.book_author.book_id</code>.
      */
-    public Integer getBookId() {
-        return (Integer) get(1);
+    public Long getBookId() {
+        return (Long) get(1);
     }
 
     /**
      * Setter for <code>public.book_author.author_id</code>.
      */
-    public void setAuthorId(Integer value) {
+    public void setAuthorId(Long value) {
         set(2, value);
     }
 
     /**
      * Getter for <code>public.book_author.author_id</code>.
      */
-    public Integer getAuthorId() {
-        return (Integer) get(2);
+    public Long getAuthorId() {
+        return (Long) get(2);
     }
 
     /**
@@ -127,7 +127,7 @@ public class BookAuthorRecord extends UpdatableRecordImpl<BookAuthorRecord> {
     /**
      * Create a detached, initialised BookAuthorRecord
      */
-    public BookAuthorRecord(Integer id, Integer bookId, Integer authorId, Integer authorOrder, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public BookAuthorRecord(Integer id, Long bookId, Long authorId, Integer authorOrder, LocalDateTime createdAt, LocalDateTime updatedAt) {
         super(BookAuthor.BOOK_AUTHOR);
 
         setId(id);

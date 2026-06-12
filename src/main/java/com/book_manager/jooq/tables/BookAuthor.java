@@ -67,12 +67,12 @@ public class BookAuthor extends TableImpl<BookAuthorRecord> {
     /**
      * The column <code>public.book_author.book_id</code>.
      */
-    public final TableField<BookAuthorRecord, Integer> BOOK_ID = createField(DSL.name("book_id"), SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<BookAuthorRecord, Long> BOOK_ID = createField(DSL.name("book_id"), SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>public.book_author.author_id</code>.
      */
-    public final TableField<BookAuthorRecord, Integer> AUTHOR_ID = createField(DSL.name("author_id"), SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<BookAuthorRecord, Long> AUTHOR_ID = createField(DSL.name("author_id"), SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>public.book_author.author_order</code>.
