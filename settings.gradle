@@ -1,1 +1,8 @@
 rootProject.name = 'book-manager'
+
+// Submodules for clean separation of layers
+include ':application'
+include ':controller'
+include ':domain'
+include ':repository'
+

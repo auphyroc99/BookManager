@@ -1,0 +1,13 @@
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '2.2.21'
+}
+
+dependencies {
+    implementation project(':domain')
+    implementation project(':repository')
+    implementation 'org.jetbrains.kotlin:kotlin-reflect'
+}
+
+// Default module layout: keep sources under application/src/main/kotlin
+

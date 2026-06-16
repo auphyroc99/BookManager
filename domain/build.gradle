@@ -1,0 +1,11 @@
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '2.2.21'
+}
+
+dependencies {
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+}
+
+// Default module layout: domain/src/main/kotlin
+
