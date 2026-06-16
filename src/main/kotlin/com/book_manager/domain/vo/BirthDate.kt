@@ -6,8 +6,8 @@ data class BirthDate(
     val date: LocalDate,
 ) {
     init {
-        require(date.isAfter(LocalDate.now())) {
-            "`date` of `BirthDate` must be after current date. `date`: $date."
+        require(date.isBefore(LocalDate.now())) {
+            "`date` of `BirthDate` must be before current date. `date`: $date."
         }
     }
 }
