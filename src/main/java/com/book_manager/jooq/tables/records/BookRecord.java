@@ -4,7 +4,7 @@
 package com.book_manager.jooq.tables.records;
 
 
-import com.book_manager.jooq.enums.BookPublicationStatus;
+import com.book_manager.jooq.enums.BookPublicationStatusCode;
 import com.book_manager.jooq.tables.Book;
 
 import java.time.LocalDateTime;
@@ -66,15 +66,15 @@ public class BookRecord extends UpdatableRecordImpl<BookRecord> {
     /**
      * Setter for <code>public.book.publication_status</code>.
      */
-    public void setPublicationStatus(BookPublicationStatus value) {
+    public void setPublicationStatus(BookPublicationStatusCode value) {
         set(3, value);
     }
 
     /**
      * Getter for <code>public.book.publication_status</code>.
      */
-    public BookPublicationStatus getPublicationStatus() {
-        return (BookPublicationStatus) get(3);
+    public BookPublicationStatusCode getPublicationStatus() {
+        return (BookPublicationStatusCode) get(3);
     }
 
     /**
@@ -142,7 +142,7 @@ public class BookRecord extends UpdatableRecordImpl<BookRecord> {
     /**
      * Create a detached, initialised BookRecord
      */
-    public BookRecord(Long id, String title, Integer price, BookPublicationStatus publicationStatus, Integer version, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public BookRecord(Long id, String title, Integer price, BookPublicationStatusCode publicationStatus, Integer version, LocalDateTime createdAt, LocalDateTime updatedAt) {
         super(Book.BOOK);
 
         setId(id);

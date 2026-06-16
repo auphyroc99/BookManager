@@ -1,9 +1,12 @@
 package com.book_manager.repository
 
 import com.book_manager.domain.entity.AuthorEntity
+import com.book_manager.domain.entity.AuthorId
 import com.book_manager.domain.entity.AuthorSchema
 import com.book_manager.domain.entity.NewAuthorEntity
 import com.book_manager.domain.repository.IAuthorRepository
+import com.book_manager.domain.vo.BirthDate
+import com.book_manager.domain.vo.Version
 import com.book_manager.jooq.Tables.AUTHOR
 import org.jooq.DSLContext
 import org.jooq.impl.DSL.noCondition
@@ -13,9 +16,11 @@ import org.springframework.stereotype.Repository
 class AuthorRepository(
     private val dsl: DSLContext
 ) : IAuthorRepository {
+    override fun findById(id: AuthorId): AuthorEntity {
+        return findSingleById(id)
+    }
 
-    override fun save(author: AuthorSchema) {
-
+    override fun save(author: AuthorSchema): AuthorEntity {
         when (author) {
             is AuthorEntity -> {
                 dsl.update(AUTHOR)
@@ -33,15 +38,34 @@ class AuthorRepository(
                             throw RuntimeException()
                         }
                     }
+                return findSingleById(author.id)
             }
 
             is NewAuthorEntity -> {
-                dsl.insertInto(AUTHOR)
+                return dsl.insertInto(AUTHOR)
                     .set(AUTHOR.NAME, author.name)
                     .set(AUTHOR.BIRTH_DATE, author.birthDate.date)
                     .set(AUTHOR.VERSION, 0)
-                    .execute()
+                    .returning(AUTHOR.ID)
+                    .fetchSingleInto(Long::class.java)
+                    .let {
+                        findSingleById(it)
+                    }
             }
         }
     }
+
+    private fun findSingleById(id: AuthorId): AuthorEntity =
+        dsl.select()
+            .from(AUTHOR)
+            .where(AUTHOR.ID.eq(id))
+            .fetchOne()
+            ?.let { authorRecord ->
+                AuthorEntity(
+                    id = authorRecord.get(AUTHOR.ID),
+                    name = authorRecord.get(AUTHOR.NAME),
+                    birthDate = BirthDate(authorRecord.get(AUTHOR.BIRTH_DATE)),
+                    version = Version(authorRecord.get(AUTHOR.VERSION))
+                )
+            } ?: throw RuntimeException()
 }

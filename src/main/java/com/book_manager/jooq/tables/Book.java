@@ -6,7 +6,7 @@ package com.book_manager.jooq.tables;
 
 import com.book_manager.jooq.Keys;
 import com.book_manager.jooq.Public;
-import com.book_manager.jooq.enums.BookPublicationStatus;
+import com.book_manager.jooq.enums.BookPublicationStatusCode;
 import com.book_manager.jooq.tables.Author.AuthorPath;
 import com.book_manager.jooq.tables.BookAuthor.BookAuthorPath;
 import com.book_manager.jooq.tables.records.BookRecord;
@@ -76,7 +76,7 @@ public class Book extends TableImpl<BookRecord> {
     /**
      * The column <code>public.book.publication_status</code>.
      */
-    public final TableField<BookRecord, BookPublicationStatus> PUBLICATION_STATUS = createField(DSL.name("publication_status"), SQLDataType.VARCHAR.nullable(false).asEnumDataType(BookPublicationStatus.class), this, "");
+    public final TableField<BookRecord, BookPublicationStatusCode> PUBLICATION_STATUS = createField(DSL.name("publication_status"), SQLDataType.VARCHAR.nullable(false).asEnumDataType(BookPublicationStatusCode.class), this, "");
 
     /**
      * The column <code>public.book.version</code>.

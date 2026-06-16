@@ -1,7 +1,10 @@
 package com.book_manager.domain.repository
 
+import com.book_manager.domain.entity.AuthorEntity
+import com.book_manager.domain.entity.AuthorId
 import com.book_manager.domain.entity.AuthorSchema
 
 interface IAuthorRepository {
-    fun save(author: AuthorSchema)
+    fun findById(id: AuthorId): AuthorEntity
+    fun save(author: AuthorSchema): AuthorEntity
 }
