@@ -2,6 +2,7 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '2.2.21'
     id 'org.jetbrains.kotlin.plugin.spring' version '2.2.21'
     id 'io.spring.dependency-management' version '1.1.7'
+    id 'nu.studer.jooq' version '9.0'
 }
 
 group = 'com.example'
@@ -17,29 +18,29 @@ repositories {
     mavenCentral()
 }
 
-// Make repositories available to subprojects/modules
 subprojects {
     repositories {
         mavenCentral()
     }
 }
 
-// Root (boot) project: depends on modules so controllers/services are on the runtime classpath
 dependencies {
     implementation project(':controller')
     implementation project(':application')
     implementation project(':repository')
 
-    // common runtime deps for the boot app
     implementation 'org.springframework.boot:spring-boot-starter'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.jetbrains.kotlin:kotlin-reflect'
     runtimeOnly 'org.postgresql:postgresql'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.jetbrains.kotlin:kotlin-test-junit5'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    jooqGenerator 'org.postgresql:postgresql:42.6.0'
+    implementation 'org.jooq:jooq:3.19.32'
 }
 
 kotlin {
@@ -52,3 +53,31 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+jooq {
+    version = '3.19.32'
+
+    configurations {
+        create('main') {
+            generationTool {
+                jdbc {
+                    driver = 'org.postgresql.Driver'
+                    url = 'jdbc:postgresql://localhost:5432/book_manager'
+                    user = 'myuser'
+                    password = 'mypassword'
+                }
+                generator {
+                    database {
+                        name = 'org.jooq.meta.postgres.PostgresDatabase'
+                        inputSchema = 'public'
+                        includes = '.*'
+                        excludes = 'flyway_schema_history|flyway_schema_history_.*'
+                    }
+                    target {
+                        packageName = 'com.bookmanager.jooq'
+                        directory = 'generated/src/main/java'
+                    }
+                }
+            }
+        }
+    }
+}
