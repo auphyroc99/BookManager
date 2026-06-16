@@ -71,8 +71,9 @@ internal class BookRepository(
                         BookPublicationStatusCode.valueOf(book.publicationStatus.name)
                     )
                     .set(BOOK.VERSION, 0)
-                    .returning()
-                    .fetchSingleInto(Long::class.java)
+                    .returning(BOOK.ID)
+                    .fetchSingle()
+                    .get(BOOK.ID)
                 book.authorIds.mapIndexed { index, authorId ->
                     BookAuthorRecord().apply {
                         set(BOOK_AUTHOR.BOOK_ID, bookId)
