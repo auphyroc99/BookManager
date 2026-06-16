@@ -32,14 +32,14 @@ services:
       FLYWAY_USER: myuser
       FLYWAY_PASSWORD: mypassword
 
-  db_clean_migrate:
+  db_rebuild:
     image: flyway/flyway:10-alpine
-    container_name: flyway_clean_migrate
+    container_name: flyway_rebuild
     depends_on:
       db:
         condition: service_healthy
     profiles:
-      - clean
+      - rebuild
     volumes:
       - ./migration:/flyway/sql
     entrypoint: ["/bin/sh", "-c"]
