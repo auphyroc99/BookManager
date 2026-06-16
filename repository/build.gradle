@@ -1,6 +1,5 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '2.2.21'
-    id 'nu.studer.jooq' version '9.0'
     id 'io.spring.dependency-management' version '1.1.7'
 }
 
@@ -9,11 +8,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:4.0.6'
     implementation 'org.jetbrains.kotlin:kotlin-reflect'
     implementation 'org.jooq:jooq:3.19.32'
+    implementation project(':generated')
     implementation project(':domain')
 
     runtimeOnly 'org.postgresql:postgresql'
-
-    jooqGenerator 'org.postgresql:postgresql:42.6.0'
 }
 
 // Use existing generated Java under root/src/main/java (keeps current generated files)
@@ -21,43 +19,13 @@ sourceSets {
     main {
         kotlin.srcDirs = ["${projectDir}/src/main/kotlin/com/book_manager/repository"]
         // Repository owns its generated Java sources under its own module directory
-        java.srcDirs = ["${projectDir}/src/main/java"]
+            // Java sources are provided by the ':generated' module (checked into git)
     }
 }
 
-// Prefer Java (generated jOOQ) compilation to run before Kotlin to allow Kotlin to reference generated types.
-// Use ordering to avoid introducing a hard dependency that could create a circular task graph.
+// Ensure Java (generated jOOQ) is compiled before Kotlin so Kotlin can reference the generated types.
 tasks.named('compileKotlin') {
-    mustRunAfter tasks.named('compileJava')
+    dependsOn tasks.named('compileJava')
 }
 
- jooq {
-    version = '3.19.32'
-
-    configurations {
-        create('main') {
-            generationTool {
-                jdbc {
-                    driver = 'org.postgresql.Driver'
-                    url = 'jdbc:postgresql://localhost:5432/book_manager'
-                    user = 'myuser'
-                    password = 'mypassword'
-                }
-
-                generator {
-                    database {
-                        name = 'org.jooq.meta.postgres.PostgresDatabase'
-                        inputSchema = 'public'
-                        includes = '.*'
-                    }
-                    target {
-                        packageName = 'com.book_manager.jooq'
-                        // generate into this module's java directory
-                        directory = "${projectDir}/src/main/java"
-                    }
-                }
-            }
-        }
-    }
-}
 

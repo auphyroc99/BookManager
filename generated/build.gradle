@@ -1,0 +1,8 @@
+plugins {
+    id 'java'
+}
+
+dependencies {
+    implementation 'org.jooq:jooq:3.19.32'
+}
+
