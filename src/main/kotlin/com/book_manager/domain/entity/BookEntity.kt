@@ -20,7 +20,27 @@ data class BookEntity(
     override val authorIds: List<AuthorId>,
     override val publicationStatus: BookPublicationStatus,
     val version: Version,
-) : BookSchema
+) : BookSchema {
+    fun updateTitle(title: String) =
+        if (title.isNotBlank()) {
+            copy(title = title)
+        } else {
+            throw IllegalArgumentException("`title` of `book` must not be blank.")
+        }
+
+    fun updatePrice(price: Price) =
+        copy(price = price)
+
+    fun updateAuthorIds(authorIds: List<AuthorId>) =
+        copy(authorIds = authorIds.distinct())
+
+    fun publish() =
+        if (publicationStatus == BookPublicationStatus.NOT_PUBLISHED) {
+            copy(publicationStatus = BookPublicationStatus.PUBLISHED)
+        } else {
+            throw IllegalArgumentException("Only not published books can be published.")
+        }
+}
 
 data class NewBookEntity(
     override val title: String,

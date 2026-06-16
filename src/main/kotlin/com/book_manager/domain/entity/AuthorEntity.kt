@@ -10,14 +10,24 @@ sealed interface AuthorSchema {
 
 typealias AuthorId = Long
 
-class AuthorEntity(
+data class AuthorEntity(
     val id: AuthorId,
     override val name: String,
     override val birthDate: BirthDate,
     val version: Version,
-): AuthorSchema
+) : AuthorSchema {
+    fun updateName(name: String): AuthorEntity =
+        if (name.isNotBlank()) {
+            copy(name = name)
+        } else {
+            throw IllegalArgumentException("`name` of `author` must not be blank.")
+        }
 
-class NewAuthorEntity(
+    fun updateBirthDate(birthDate: BirthDate): AuthorEntity =
+        copy(birthDate = birthDate)
+}
+
+data class NewAuthorEntity(
     override val name: String,
     override val birthDate: BirthDate,
-): AuthorSchema
+) : AuthorSchema

@@ -1,4 +1,4 @@
-package com.book_manager.domain.repository
+package com.book_manager.domain.port
 
 import com.book_manager.domain.entity.BookEntity
 import com.book_manager.domain.entity.BookId

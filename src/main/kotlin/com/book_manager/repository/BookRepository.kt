@@ -4,7 +4,7 @@ import com.book_manager.domain.entity.BookEntity
 import com.book_manager.domain.entity.BookId
 import com.book_manager.domain.entity.BookSchema
 import com.book_manager.domain.entity.NewBookEntity
-import com.book_manager.domain.repository.IBookRepository
+import com.book_manager.domain.port.IBookRepository
 import com.book_manager.domain.vo.BookPublicationStatus
 import com.book_manager.domain.vo.Price
 import com.book_manager.domain.vo.Version
@@ -17,7 +17,7 @@ import org.jooq.impl.DSL.noCondition
 import org.springframework.stereotype.Repository
 
 @Repository
-class BookRepository(
+internal class BookRepository(
     private val dsl: DSLContext
 ) : IBookRepository {
     override fun findById(id: BookId): BookEntity {

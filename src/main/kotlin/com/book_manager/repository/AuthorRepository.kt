@@ -4,7 +4,7 @@ import com.book_manager.domain.entity.AuthorEntity
 import com.book_manager.domain.entity.AuthorId
 import com.book_manager.domain.entity.AuthorSchema
 import com.book_manager.domain.entity.NewAuthorEntity
-import com.book_manager.domain.repository.IAuthorRepository
+import com.book_manager.domain.port.IAuthorRepository
 import com.book_manager.domain.vo.BirthDate
 import com.book_manager.domain.vo.Version
 import com.book_manager.jooq.Tables.AUTHOR
@@ -13,7 +13,7 @@ import org.jooq.impl.DSL.noCondition
 import org.springframework.stereotype.Repository
 
 @Repository
-class AuthorRepository(
+internal class AuthorRepository(
     private val dsl: DSLContext
 ) : IAuthorRepository {
     override fun findById(id: AuthorId): AuthorEntity {
