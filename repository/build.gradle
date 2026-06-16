@@ -20,5 +20,3 @@ sourceSets {
         kotlin.srcDirs = ["${projectDir}/src/main/kotlin/com/book_manager/repository"]
     }
 }
-
-

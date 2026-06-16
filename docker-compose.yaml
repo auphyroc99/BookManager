@@ -25,7 +25,7 @@ services:
     profiles:
       - migrate
     volumes:
-      - ./src/main/resources/db/migration:/flyway/sql
+      - ./migration:/flyway/sql
     command: -url=jdbc:postgresql://db:5432/book_manager -user=myuser -password=mypassword migrate
     environment:
       FLYWAY_URL: jdbc:postgresql://db:5432/book_manager
@@ -41,7 +41,7 @@ services:
     profiles:
       - clean
     volumes:
-      - ./src/main/resources/db/migration:/flyway/sql
+      - ./migration:/flyway/sql
     entrypoint: ["/bin/sh", "-c"]
     command: ["flyway -url=jdbc:postgresql://db:5432/book_manager -user=myuser -password=mypassword clean && flyway -url=jdbc:postgresql://db:5432/book_manager -user=myuser -password=mypassword migrate"]
     environment:

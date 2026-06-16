@@ -11,9 +11,6 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-reflect'
 }
 
-// Use default module layout: src/main/kotlin, src/test/kotlin
-
 springBoot {
     mainClass = 'com.book_manager.BookManagerApplicationKt'
 }
-
