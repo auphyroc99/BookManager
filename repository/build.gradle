@@ -14,18 +14,11 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql'
 }
 
-// Use existing generated Java under root/src/main/java (keeps current generated files)
+// Use existing generated Java from the ':generated' module (keeps jOOQ files in git)
 sourceSets {
     main {
         kotlin.srcDirs = ["${projectDir}/src/main/kotlin/com/book_manager/repository"]
-        // Repository owns its generated Java sources under its own module directory
-            // Java sources are provided by the ':generated' module (checked into git)
     }
-}
-
-// Ensure Java (generated jOOQ) is compiled before Kotlin so Kotlin can reference the generated types.
-tasks.named('compileKotlin') {
-    dependsOn tasks.named('compileJava')
 }
 
 
