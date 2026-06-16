@@ -47,7 +47,8 @@ internal class AuthorRepository(
                     .set(AUTHOR.BIRTH_DATE, author.birthDate.date)
                     .set(AUTHOR.VERSION, 0)
                     .returning(AUTHOR.ID)
-                    .fetchSingleInto(Long::class.java)
+                    .fetchSingle()
+                    .get(AUTHOR.ID)
                     .let {
                         findSingleById(it)
                     }
