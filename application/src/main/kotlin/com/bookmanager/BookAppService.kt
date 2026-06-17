@@ -10,6 +10,7 @@ import com.bookmanager.exception.OptimisticLockException
 import com.bookmanager.exception.VersionConflictException
 import com.bookmanager.port.IBookAppService
 import com.bookmanager.port.IBookRepository
+import com.bookmanager.vo.Authors
 import com.bookmanager.vo.BookPublicationStatus
 import com.bookmanager.vo.Price
 import org.springframework.stereotype.Service
@@ -24,7 +25,7 @@ internal class BookAppService(
         NewBookEntity(
             title = command.title,
             price = Price(command.price),
-            authorIds = command.authorIds,
+            authors = Authors(command.authorIds),
             publicationStatus = BookPublicationStatus.valueOf(command.publicationStatus),
         ).let {
             bookRepository.save(it).toDto()

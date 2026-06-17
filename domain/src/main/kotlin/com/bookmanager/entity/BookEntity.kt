@@ -1,5 +1,6 @@
 package com.bookmanager.entity
 
+import com.bookmanager.vo.Authors
 import com.bookmanager.vo.BookPublicationStatus
 import com.bookmanager.vo.Price
 import com.bookmanager.vo.Version
@@ -7,7 +8,7 @@ import com.bookmanager.vo.Version
 sealed interface BookSchema {
     val title: String
     val price: Price
-    val authorIds: List<AuthorId>
+    val authors: Authors
     val publicationStatus: BookPublicationStatus
 }
 
@@ -17,7 +18,7 @@ data class BookEntity(
     val id: BookId,
     override val title: String,
     override val price: Price,
-    override val authorIds: List<AuthorId>,
+    override val authors: Authors,
     override val publicationStatus: BookPublicationStatus,
     val version: Version,
 ) : BookSchema {
@@ -32,7 +33,7 @@ data class BookEntity(
         copy(price = price)
 
     fun updateAuthorIds(authorIds: List<AuthorId>) =
-        copy(authorIds = authorIds.distinct())
+        copy(authors = Authors(authorIds))
 
     fun publish() =
         if (publicationStatus == BookPublicationStatus.NOT_PUBLISHED) {
@@ -45,6 +46,6 @@ data class BookEntity(
 data class NewBookEntity(
     override val title: String,
     override val price: Price,
-    override val authorIds: List<AuthorId>,
+    override val authors: Authors,
     override val publicationStatus: BookPublicationStatus,
 ) : BookSchema
