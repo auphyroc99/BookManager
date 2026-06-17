@@ -1,4 +1,4 @@
-package com.bookmanager
+package com.bookmanager.infra
 
 import com.bookmanager.entity.AuthorId
 import com.bookmanager.entity.BookEntity

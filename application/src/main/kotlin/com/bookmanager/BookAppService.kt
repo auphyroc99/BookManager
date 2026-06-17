@@ -7,7 +7,7 @@ import com.bookmanager.dto.BookDto.Companion.toDto
 import com.bookmanager.entity.NewBookEntity
 import com.bookmanager.exception.BookNotFoundException
 import com.bookmanager.exception.OptimisticLockException
-import com.bookmanager.exception.VersionConflictException
+import com.bookmanager.infra.exception.VersionConflictException
 import com.bookmanager.param.SearchBooksParam
 import com.bookmanager.port.IBookAppService
 import com.bookmanager.port.IBookQueryService

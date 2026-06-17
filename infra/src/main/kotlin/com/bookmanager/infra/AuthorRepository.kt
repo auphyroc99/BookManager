@@ -1,10 +1,10 @@
-package com.bookmanager
+package com.bookmanager.infra
 
 import com.bookmanager.entity.AuthorEntity
 import com.bookmanager.entity.AuthorId
 import com.bookmanager.entity.AuthorSchema
 import com.bookmanager.entity.NewAuthorEntity
-import com.bookmanager.exception.VersionConflictException
+import com.bookmanager.infra.exception.VersionConflictException
 import com.bookmanager.jooq.Tables.AUTHOR
 import com.bookmanager.port.IAuthorRepository
 import com.bookmanager.vo.BirthDate

@@ -8,7 +8,7 @@ import com.bookmanager.entity.AuthorId
 import com.bookmanager.entity.NewAuthorEntity
 import com.bookmanager.exception.AuthorNotFoundException
 import com.bookmanager.exception.OptimisticLockException
-import com.bookmanager.exception.VersionConflictException
+import com.bookmanager.infra.exception.VersionConflictException
 import com.bookmanager.port.IAuthorAppService
 import com.bookmanager.port.IAuthorRepository
 import com.bookmanager.vo.BirthDate
