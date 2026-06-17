@@ -23,6 +23,16 @@ subprojects {
     }
 }
 
+// Provide a no-op task expected by some IDE/Gradle integrations (e.g. older IntelliJ import)
+// that may request `prepareKotlinBuildScriptModel` on subprojects. Some Kotlin Gradle
+// plugin versions don't create this task, which causes IDE sync to fail. Register a
+// harmless task in all subprojects to satisfy such tooling.
+subprojects {
+    tasks.register('prepareKotlinBuildScriptModel') {
+        // intentionally empty: present to satisfy IDE/Gradle tooling that expects it
+    }
+}
+
 dependencies {
     jooqGenerator 'org.postgresql:postgresql:42.6.0'
 }

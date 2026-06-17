@@ -5,3 +5,7 @@ plugins {
 dependencies {
     implementation 'org.jooq:jooq:3.19.32'
 }
+
+tasks.named('compileJava') {
+    dependsOn rootProject.tasks.named('generateJooq')
+}
