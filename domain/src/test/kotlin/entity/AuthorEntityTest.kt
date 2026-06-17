@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito.mock
 
-class AuthorEntityTest {
+internal class AuthorEntityTest {
     @Test
     fun nameOfNewAuthorEntityMustNotBeBlank() {
         // given

@@ -1,7 +1,9 @@
 package com.bookmanager.vo
 
+import com.bookmanager.entity.AuthorId
+
 class Authors private constructor(
-    val authorIds: List<Long>,
+    val authorIds: List<AuthorId>,
 ) {
     init {
         require(authorIds.isNotEmpty()) {
