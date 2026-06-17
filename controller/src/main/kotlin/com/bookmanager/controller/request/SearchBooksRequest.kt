@@ -1,6 +1,6 @@
-package com.bookmanager.request
+package com.bookmanager.controller.request
 
-import com.bookmanager.param.SearchBooksParam
+import com.bookmanager.application.param.SearchBooksParam
 
 data class SearchBooksRequest(
     val authorId: Long,

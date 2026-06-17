@@ -1,6 +1,6 @@
-package com.bookmanager.request
+package com.bookmanager.controller.request
 
-import com.bookmanager.command.RegisterBookCommand
+import com.bookmanager.application.command.RegisterBookCommand
 
 data class RegisterBookRequest(
     val title: String,

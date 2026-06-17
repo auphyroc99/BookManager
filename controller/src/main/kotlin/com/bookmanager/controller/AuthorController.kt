@@ -1,15 +1,15 @@
-package com.bookmanager
+package com.bookmanager.controller
 
-import com.bookmanager.exception.AuthorNotFoundException
-import com.bookmanager.exception.BadRequestException
-import com.bookmanager.exception.ConflictException
-import com.bookmanager.exception.NotFoundException
-import com.bookmanager.exception.OptimisticLockException
-import com.bookmanager.port.IAuthorAppService
-import com.bookmanager.request.RegisterAuthorRequest
-import com.bookmanager.request.UpdateAuthorRequest
-import com.bookmanager.response.AuthorResponse
-import com.bookmanager.response.AuthorResponse.Companion.toResponse
+import com.bookmanager.application.exception.AuthorNotFoundException
+import com.bookmanager.application.exception.OptimisticLockException
+import com.bookmanager.application.port.IAuthorAppService
+import com.bookmanager.controller.exception.BadRequestException
+import com.bookmanager.controller.exception.ConflictException
+import com.bookmanager.controller.exception.NotFoundException
+import com.bookmanager.controller.request.RegisterAuthorRequest
+import com.bookmanager.controller.request.UpdateAuthorRequest
+import com.bookmanager.controller.response.AuthorResponse
+import com.bookmanager.controller.response.AuthorResponse.Companion.toResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping

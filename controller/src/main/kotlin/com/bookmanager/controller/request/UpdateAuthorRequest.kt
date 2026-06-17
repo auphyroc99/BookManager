@@ -1,6 +1,6 @@
-package com.bookmanager.request
+package com.bookmanager.controller.request
 
-import com.bookmanager.command.UpdateAuthorCommand
+import com.bookmanager.application.command.UpdateAuthorCommand
 import java.time.LocalDate
 
 data class UpdateAuthorRequest(

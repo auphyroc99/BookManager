@@ -1,6 +1,6 @@
-package com.bookmanager.response
+package com.bookmanager.controller.response
 
-import com.bookmanager.dto.AuthorDto
+import com.bookmanager.application.dto.AuthorDto
 import java.time.LocalDate
 
 data class AuthorResponse(

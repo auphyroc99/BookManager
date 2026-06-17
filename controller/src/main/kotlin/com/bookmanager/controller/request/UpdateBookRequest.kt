@@ -1,6 +1,6 @@
-package com.bookmanager.request
+package com.bookmanager.controller.request
 
-import com.bookmanager.command.UpdateBookCommand
+import com.bookmanager.application.command.UpdateBookCommand
 
 data class UpdateBookRequest(
     val id: Long,

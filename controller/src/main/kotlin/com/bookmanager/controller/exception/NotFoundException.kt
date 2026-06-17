@@ -1,4 +1,4 @@
-package com.bookmanager.exception
+package com.bookmanager.controller.exception
 
 class NotFoundException : RuntimeException {
     constructor(message: String) : super(message)

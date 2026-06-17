@@ -1,6 +1,6 @@
-package com.bookmanager.request
+package com.bookmanager.controller.request
 
-import com.bookmanager.command.RegisterAuthorCommand
+import com.bookmanager.application.command.RegisterAuthorCommand
 import java.time.LocalDate
 
 data class RegisterAuthorRequest(

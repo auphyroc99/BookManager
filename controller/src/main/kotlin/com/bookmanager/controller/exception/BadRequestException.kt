@@ -1,6 +1,6 @@
-package com.bookmanager.exception
+package com.bookmanager.controller.exception
 
-class ConflictException : RuntimeException {
+class BadRequestException : RuntimeException {
     constructor(message: String) : super(message)
     constructor(message: String, cause: Throwable) : super(message, cause)
 }

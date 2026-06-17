@@ -1,8 +1,8 @@
-package com.bookmanager
+package com.bookmanager.controller
 
-import com.bookmanager.exception.BadRequestException
-import com.bookmanager.exception.ConflictException
-import com.bookmanager.exception.NotFoundException
+import com.bookmanager.controller.exception.BadRequestException
+import com.bookmanager.controller.exception.ConflictException
+import com.bookmanager.controller.exception.NotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler

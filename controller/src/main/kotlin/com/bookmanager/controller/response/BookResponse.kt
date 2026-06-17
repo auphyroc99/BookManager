@@ -1,6 +1,6 @@
-package com.bookmanager.response
+package com.bookmanager.controller.response
 
-import com.bookmanager.dto.BookDto
+import com.bookmanager.application.dto.BookDto
 
 data class BookResponse(
     val id: Long,
