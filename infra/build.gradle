@@ -13,9 +13,16 @@ dependencies {
     implementation project(':generated')
     implementation project(':domain')
 
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:4.0.6'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
     runtimeOnly 'org.postgresql:postgresql:42.6.0'
 }
 
 repositories {
     mavenCentral()
+}
+
+test {
+    useJUnitPlatform()
 }

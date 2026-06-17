@@ -39,7 +39,7 @@ internal class BookAppService(
         bookRepository.findById(command.id)
             ?.updateTitle(command.title)
             ?.updatePrice(Price(command.price))
-            ?.updateAuthorIds(command.authorIds)
+            ?.updateAuthorIds(Authors(command.authorIds))
             ?.let {
                 runCatching {
                     bookRepository.save(it)

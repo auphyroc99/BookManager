@@ -32,8 +32,8 @@ data class BookEntity(
     fun updatePrice(price: Price) =
         copy(price = price)
 
-    fun updateAuthorIds(authorIds: List<AuthorId>) =
-        copy(authors = Authors(authorIds))
+    fun updateAuthorIds(authors: Authors) =
+        copy(authors = authors)
 
     fun publish() =
         if (publicationStatus == BookPublicationStatus.NOT_PUBLISHED) {
