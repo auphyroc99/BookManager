@@ -1,4 +1,4 @@
-package com.bookmanager.exception
+package com.bookmanager.application.exception
 
 class OptimisticLockException : RuntimeException {
     constructor(message: String) : super(message)

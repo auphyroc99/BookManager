@@ -1,9 +1,9 @@
-package com.bookmanager.port
+package com.bookmanager.application.port
 
-import com.bookmanager.command.RegisterBookCommand
-import com.bookmanager.param.SearchBooksParam
-import com.bookmanager.command.UpdateBookCommand
-import com.bookmanager.dto.BookDto
+import com.bookmanager.application.command.RegisterBookCommand
+import com.bookmanager.application.command.UpdateBookCommand
+import com.bookmanager.application.dto.BookDto
+import com.bookmanager.application.param.SearchBooksParam
 
 interface IBookAppService {
     fun registerBook(command: RegisterBookCommand): BookDto

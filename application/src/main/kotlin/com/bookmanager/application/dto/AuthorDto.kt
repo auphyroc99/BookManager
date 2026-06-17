@@ -1,4 +1,4 @@
-package com.bookmanager.dto
+package com.bookmanager.application.dto
 
 import com.bookmanager.domain.entity.AuthorEntity
 import java.time.LocalDate

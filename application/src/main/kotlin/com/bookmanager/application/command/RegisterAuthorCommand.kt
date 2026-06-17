@@ -1,4 +1,4 @@
-package com.bookmanager.command
+package com.bookmanager.application.command
 
 import java.time.LocalDate
 

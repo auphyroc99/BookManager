@@ -11,7 +11,16 @@ dependencies {
     implementation 'org.springframework:spring-tx:6.1.14'
     implementation 'org.jetbrains.kotlin:kotlin-reflect'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:4.0.6'
+    testImplementation 'org.mockito.kotlin:mockito-kotlin:6.1.0'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
+
 repositories {
     mavenCentral()
+}
+
+test {
+    useJUnitPlatform()
 }

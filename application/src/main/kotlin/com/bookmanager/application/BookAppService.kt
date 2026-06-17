@@ -1,15 +1,15 @@
-package com.bookmanager
+package com.bookmanager.application
 
-import com.bookmanager.command.RegisterBookCommand
-import com.bookmanager.command.UpdateBookCommand
-import com.bookmanager.dto.BookDto
-import com.bookmanager.dto.BookDto.Companion.toDto
+import com.bookmanager.application.command.RegisterBookCommand
+import com.bookmanager.application.command.UpdateBookCommand
+import com.bookmanager.application.dto.BookDto
+import com.bookmanager.application.dto.BookDto.Companion.toDto
+import com.bookmanager.application.exception.BookNotFoundException
+import com.bookmanager.application.exception.OptimisticLockException
+import com.bookmanager.application.param.SearchBooksParam
+import com.bookmanager.application.port.IBookAppService
 import com.bookmanager.domain.entity.NewBookEntity
-import com.bookmanager.exception.BookNotFoundException
-import com.bookmanager.exception.OptimisticLockException
 import com.bookmanager.infra.exception.VersionConflictException
-import com.bookmanager.param.SearchBooksParam
-import com.bookmanager.port.IBookAppService
 import com.bookmanager.domain.port.IBookQueryService
 import com.bookmanager.domain.port.IBookRepository
 import com.bookmanager.domain.vo.Authors

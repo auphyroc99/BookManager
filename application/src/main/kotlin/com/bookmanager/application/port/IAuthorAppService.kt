@@ -1,8 +1,8 @@
-package com.bookmanager.port
+package com.bookmanager.application.port
 
-import com.bookmanager.command.RegisterAuthorCommand
-import com.bookmanager.command.UpdateAuthorCommand
-import com.bookmanager.dto.AuthorDto
+import com.bookmanager.application.command.RegisterAuthorCommand
+import com.bookmanager.application.command.UpdateAuthorCommand
+import com.bookmanager.application.dto.AuthorDto
 import com.bookmanager.domain.entity.AuthorId
 
 interface IAuthorAppService {
