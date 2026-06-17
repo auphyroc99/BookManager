@@ -17,7 +17,7 @@ dependencies {
 }
 
 springBoot {
-    mainClass = 'com.bookmanager.BookManagerApplicationKt'
+    mainClass = 'com.bookmanager.controller.BookManagerApplicationKt'
 }
 
 test {
