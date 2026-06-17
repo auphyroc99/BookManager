@@ -10,24 +10,60 @@ sealed interface AuthorSchema {
 
 typealias AuthorId = Long
 
-data class AuthorEntity(
+@ConsistentCopyVisibility
+data class AuthorEntity private constructor(
     val id: AuthorId,
     override val name: String,
     override val birthDate: BirthDate,
     val version: Version,
 ) : AuthorSchema {
-    fun updateName(name: String): AuthorEntity =
-        if (name.isNotBlank()) {
-            copy(name = name)
-        } else {
-            throw IllegalArgumentException("`name` of `author` must not be blank.")
+    init {
+        require(name.isNotBlank()) {
+            "`name` of `author` must not be blank."
         }
+    }
+
+    fun updateName(name: String): AuthorEntity =
+        copy(name = name)
 
     fun updateBirthDate(birthDate: BirthDate): AuthorEntity =
         copy(birthDate = birthDate)
+
+    companion object {
+        operator fun invoke(
+            id: AuthorId,
+            name: String,
+            birthDate: BirthDate,
+            version: Version,
+        ): AuthorEntity =
+            AuthorEntity(
+                id = id,
+                name = name,
+                birthDate = birthDate,
+                version = version,
+            )
+    }
 }
 
-data class NewAuthorEntity(
+@ConsistentCopyVisibility
+data class NewAuthorEntity private constructor(
     override val name: String,
     override val birthDate: BirthDate,
-) : AuthorSchema
+) : AuthorSchema {
+    init {
+        require(name.isNotBlank()) {
+            "`name` of `author` must not be blank."
+        }
+    }
+
+    companion object {
+        operator fun invoke(
+            name: String,
+            birthDate: BirthDate,
+        ): NewAuthorEntity =
+            NewAuthorEntity(
+                name = name,
+                birthDate = birthDate,
+            )
+    }
+}

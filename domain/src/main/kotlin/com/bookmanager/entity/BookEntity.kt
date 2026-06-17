@@ -14,7 +14,8 @@ sealed interface BookSchema {
 
 typealias BookId = Long
 
-data class BookEntity(
+@ConsistentCopyVisibility
+data class BookEntity private constructor(
     val id: BookId,
     override val title: String,
     override val price: Price,
@@ -22,12 +23,14 @@ data class BookEntity(
     override val publicationStatus: BookPublicationStatus,
     val version: Version,
 ) : BookSchema {
-    fun updateTitle(title: String) =
-        if (title.isNotBlank()) {
-            copy(title = title)
-        } else {
-            throw IllegalArgumentException("`title` of `book` must not be blank.")
+    init {
+        require(title.isNotBlank()) {
+            "`title` of `book` must not be blank."
         }
+    }
+
+    fun updateTitle(title: String) =
+        copy(title = title)
 
     fun updatePrice(price: Price) =
         copy(price = price)
@@ -41,11 +44,52 @@ data class BookEntity(
         } else {
             throw IllegalArgumentException("Only not published books can be published.")
         }
+
+    companion object {
+        operator fun invoke(
+            id: BookId,
+            title: String,
+            price: Price,
+            authors: Authors,
+            publicationStatus: BookPublicationStatus,
+            version: Version,
+        ): BookEntity =
+            BookEntity(
+                id = id,
+                title = title,
+                price = price,
+                authors = authors,
+                publicationStatus = publicationStatus,
+                version = version,
+            )
+    }
 }
 
-data class NewBookEntity(
+@ConsistentCopyVisibility
+data class NewBookEntity private constructor(
     override val title: String,
     override val price: Price,
     override val authors: Authors,
     override val publicationStatus: BookPublicationStatus,
-) : BookSchema
+) : BookSchema {
+    init {
+        require(title.isNotBlank()) {
+            "`title` of `book` must not be blank."
+        }
+    }
+
+    companion object {
+        operator fun invoke(
+            title: String,
+            price: Price,
+            authors: Authors,
+            publicationStatus: BookPublicationStatus,
+        ): NewBookEntity =
+            NewBookEntity(
+                title = title,
+                price = price,
+                authors = authors,
+                publicationStatus = publicationStatus,
+            )
+    }
+}
