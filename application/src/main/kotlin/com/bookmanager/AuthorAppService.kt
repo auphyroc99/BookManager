@@ -6,6 +6,9 @@ import com.bookmanager.dto.AuthorDto
 import com.bookmanager.dto.AuthorDto.Companion.toDto
 import com.bookmanager.entity.AuthorId
 import com.bookmanager.entity.NewAuthorEntity
+import com.bookmanager.exception.AuthorNotFoundException
+import com.bookmanager.exception.OptimisticLockException
+import com.bookmanager.exception.VersionConflictException
 import com.bookmanager.port.IAuthorAppService
 import com.bookmanager.port.IAuthorRepository
 import com.bookmanager.vo.BirthDate
@@ -28,17 +31,27 @@ internal class AuthorAppService(
     @Transactional
     override fun updateAuthor(command: UpdateAuthorCommand): AuthorDto =
         authorRepository.findById(command.id)
-            .updateName(command.name)
-            .updateBirthDate(BirthDate(command.birthDate))
-            .let {
-                authorRepository.save(it).toDto()
-            }
+            ?.updateName(command.name)
+            ?.updateBirthDate(BirthDate(command.birthDate))
+            ?.let {
+                runCatching {
+                    authorRepository.save(it)
+                }.getOrElse { ex ->
+                    when (ex) {
+                        is VersionConflictException -> {
+                            throw OptimisticLockException(
+                                "Author with id ${command.id} was modified by another transaction. Please retry the operation.",
+                                ex
+                            )
+                        }
 
-    override fun fetchAuthorById(id: AuthorId): AuthorDto? {
-        return try {
-            authorRepository.findById(id).toDto()
-        } catch (e: NoSuchElementException) {
-            null
-        }
-    }
+                        else -> throw ex
+                    }
+                }.toDto()
+            } ?: throw AuthorNotFoundException(
+            "Author with id ${command.id} not found"
+        )
+
+    override fun fetchAuthorById(id: AuthorId): AuthorDto? =
+        authorRepository.findById(id)?.toDto()
 }

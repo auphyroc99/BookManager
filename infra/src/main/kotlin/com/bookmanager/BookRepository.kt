@@ -20,8 +20,8 @@ import org.springframework.stereotype.Repository
 internal class BookRepository(
     private val dsl: DSLContext
 ) : IBookRepository {
-    override fun findById(id: BookId): BookEntity {
-        return findSingleById(id)
+    override fun findById(id: BookId): BookEntity? {
+        return findOneById(id)
     }
 
     override fun save(book: BookSchema): BookEntity {
@@ -59,7 +59,9 @@ internal class BookRepository(
                     dsl.batchInsert(it)
                         .execute()
                 }
-                return findSingleById(book.id)
+                return findOneById(book.id) ?: throw RuntimeException(
+                    "Unexpected error. Book with id ${book.id} not found after update."
+                )
             }
 
             is NewBookEntity -> {
@@ -84,12 +86,14 @@ internal class BookRepository(
                     dsl.batchInsert(it)
                         .execute()
                 }
-                return findSingleById(bookId)
+                return findOneById(bookId) ?: throw RuntimeException(
+                    "Unexpected error. Book with id $bookId not found after update."
+                )
             }
         }
     }
 
-    private fun findSingleById(id: BookId): BookEntity =
+    private fun findOneById(id: BookId): BookEntity? =
         dsl.select()
             .from(BOOK)
             .where(BOOK.ID.eq(id))
@@ -110,5 +114,5 @@ internal class BookRepository(
                     ),
                     version = Version(bookRecord.get(BOOK.VERSION))
                 )
-            } ?: throw RuntimeException()
+            }
 }

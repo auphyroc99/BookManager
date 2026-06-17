@@ -4,6 +4,7 @@ import com.bookmanager.entity.AuthorEntity
 import com.bookmanager.entity.AuthorId
 import com.bookmanager.entity.AuthorSchema
 import com.bookmanager.entity.NewAuthorEntity
+import com.bookmanager.exception.VersionConflictException
 import com.bookmanager.jooq.Tables.AUTHOR
 import com.bookmanager.port.IAuthorRepository
 import com.bookmanager.vo.BirthDate
@@ -16,8 +17,8 @@ import org.springframework.stereotype.Repository
 internal class AuthorRepository(
     private val dsl: DSLContext
 ) : IAuthorRepository {
-    override fun findById(id: AuthorId): AuthorEntity {
-        return findSingleById(id)
+    override fun findById(id: AuthorId): AuthorEntity? {
+        return findOneById(id)
     }
 
     override fun save(author: AuthorSchema): AuthorEntity {
@@ -35,10 +36,14 @@ internal class AuthorRepository(
                     .execute()
                     .let { countOfRows ->
                         if (countOfRows < 1) {
-                            throw RuntimeException()
+                            throw VersionConflictException(
+                                "Failed to update Author with id ${author.id}. Version conflict detected."
+                            )
                         }
                     }
-                return findSingleById(author.id)
+                return findOneById(author.id) ?: throw RuntimeException(
+                    "Unexpected error. Author with id ${author.id} not found after update."
+                )
             }
 
             is NewAuthorEntity -> {
@@ -50,13 +55,15 @@ internal class AuthorRepository(
                     .fetchSingle()
                     .get(AUTHOR.ID)
                     .let {
-                        findSingleById(it)
+                        findOneById(it) ?: throw RuntimeException(
+                            "Unexpected error. Author with id $it not found after insert."
+                        )
                     }
             }
         }
     }
 
-    private fun findSingleById(id: AuthorId): AuthorEntity =
+    private fun findOneById(id: AuthorId): AuthorEntity? =
         dsl.select()
             .from(AUTHOR)
             .where(AUTHOR.ID.eq(id))
@@ -68,5 +75,5 @@ internal class AuthorRepository(
                     birthDate = BirthDate(authorRecord.get(AUTHOR.BIRTH_DATE)),
                     version = Version(authorRecord.get(AUTHOR.VERSION))
                 )
-            } ?: throw RuntimeException()
+            }
 }

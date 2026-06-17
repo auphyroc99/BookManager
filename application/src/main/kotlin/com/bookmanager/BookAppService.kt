@@ -5,6 +5,9 @@ import com.bookmanager.command.UpdateBookCommand
 import com.bookmanager.dto.BookDto
 import com.bookmanager.dto.BookDto.Companion.toDto
 import com.bookmanager.entity.NewBookEntity
+import com.bookmanager.exception.BookNotFoundException
+import com.bookmanager.exception.OptimisticLockException
+import com.bookmanager.exception.VersionConflictException
 import com.bookmanager.port.IBookAppService
 import com.bookmanager.port.IBookRepository
 import com.bookmanager.vo.BookPublicationStatus
@@ -30,26 +33,51 @@ internal class BookAppService(
     @Transactional
     override fun updateBook(command: UpdateBookCommand): BookDto =
         bookRepository.findById(command.id)
-            .updateTitle(command.title)
-            .updatePrice(Price(command.price))
-            .updateAuthorIds(command.authorIds)
-            .let {
-                bookRepository.save(it).toDto()
-            }
+            ?.updateTitle(command.title)
+            ?.updatePrice(Price(command.price))
+            ?.updateAuthorIds(command.authorIds)
+            ?.let {
+                runCatching {
+                    bookRepository.save(it)
+                }.getOrElse { ex ->
+                    when (ex) {
+                        is VersionConflictException -> {
+                            throw OptimisticLockException(
+                                "Book with id ${command.id} was modified by another transaction. Please retry the operation.",
+                                ex
+                            )
+                        }
+
+                        else -> throw ex
+                    }
+                }.toDto()
+            } ?: throw BookNotFoundException(
+            "Book with id ${command.id} not found"
+        )
 
     @Transactional
     override fun publishBook(id: Long): BookDto =
         bookRepository.findById(id)
-            .publish()
-            .let {
-                bookRepository.save(it).toDto()
-            }
+            ?.publish()
+            ?.let {
+                runCatching {
+                    bookRepository.save(it)
+                }.getOrElse { ex ->
+                    when (ex) {
+                        is VersionConflictException -> {
+                            throw OptimisticLockException(
+                                "Book with id $id was modified by another transaction. Please retry the operation.",
+                                ex
+                            )
+                        }
 
-    override fun fetchBookById(id: Long): BookDto? {
-        return try {
-            bookRepository.findById(id).toDto()
-        } catch (e: NoSuchElementException) {
-            null
-        }
-    }
+                        else -> throw ex
+                    }
+                }.toDto()
+            } ?: throw BookNotFoundException(
+            "Book with id $id not found"
+        )
+
+    override fun fetchBookById(id: Long): BookDto? =
+        bookRepository.findById(id)?.toDto()
 }
