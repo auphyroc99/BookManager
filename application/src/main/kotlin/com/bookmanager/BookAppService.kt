@@ -8,7 +8,9 @@ import com.bookmanager.entity.NewBookEntity
 import com.bookmanager.exception.BookNotFoundException
 import com.bookmanager.exception.OptimisticLockException
 import com.bookmanager.exception.VersionConflictException
+import com.bookmanager.param.SearchBooksParam
 import com.bookmanager.port.IBookAppService
+import com.bookmanager.port.IBookQueryService
 import com.bookmanager.port.IBookRepository
 import com.bookmanager.vo.Authors
 import com.bookmanager.vo.BookPublicationStatus
@@ -19,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 internal class BookAppService(
     private val bookRepository: IBookRepository,
+    private val bookQueryService: IBookQueryService,
 ) : IBookAppService {
     @Transactional
     override fun registerBook(command: RegisterBookCommand): BookDto =
@@ -81,4 +84,7 @@ internal class BookAppService(
 
     override fun fetchBookById(id: Long): BookDto? =
         bookRepository.findById(id)?.toDto()
+
+    override fun searchBooks(command: SearchBooksParam): List<BookDto> =
+        bookQueryService.findByAuthorId(command.authorId).map { it.toDto() }
 }

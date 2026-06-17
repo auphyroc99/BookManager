@@ -7,6 +7,7 @@ import com.bookmanager.exception.NotFoundException
 import com.bookmanager.exception.OptimisticLockException
 import com.bookmanager.port.IBookAppService
 import com.bookmanager.request.RegisterBookRequest
+import com.bookmanager.request.SearchBooksRequest
 import com.bookmanager.request.UpdateBookRequest
 import com.bookmanager.response.BookResponse
 import com.bookmanager.response.BookResponse.Companion.toResponse
@@ -119,4 +120,14 @@ internal class BookController(
                 ResponseEntity
                     .ok(it)
             } ?: throw NotFoundException("Book with id $id not found.")
+
+    @PostMapping("/search")
+    fun searchBooks(@RequestBody request: SearchBooksRequest): ResponseEntity<List<BookResponse>> =
+        bookAppService
+            .searchBooks(request.toParam())
+            .map { it.toResponse() }
+            .let {
+                ResponseEntity
+                    .ok(it)
+            }
 }

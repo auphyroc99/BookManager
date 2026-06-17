@@ -15,7 +15,7 @@ data class BookDto(
                 id = this.id,
                 title = this.title,
                 price = this.price.value,
-                authorIds = this.authors,
+                authorIds = this.authors.authorIds,
                 publicationStatus = this.publicationStatus.name,
             )
     }

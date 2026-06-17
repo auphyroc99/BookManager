@@ -1,6 +1,7 @@
 package com.bookmanager.port
 
 import com.bookmanager.command.RegisterBookCommand
+import com.bookmanager.param.SearchBooksParam
 import com.bookmanager.command.UpdateBookCommand
 import com.bookmanager.dto.BookDto
 
@@ -9,4 +10,5 @@ interface IBookAppService {
     fun updateBook(command: UpdateBookCommand): BookDto
     fun publishBook(id: Long): BookDto
     fun fetchBookById(id: Long): BookDto?
+    fun searchBooks(command: SearchBooksParam): List<BookDto>
 }
