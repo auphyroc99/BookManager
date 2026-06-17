@@ -1,7 +1,5 @@
-package com.bookmanager.entity
+package com.bookmanager.domain.entity
 
-import com.bookmanager.entity.AuthorEntity
-import com.bookmanager.entity.NewAuthorEntity
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows

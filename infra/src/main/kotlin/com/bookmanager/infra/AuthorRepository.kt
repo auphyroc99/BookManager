@@ -1,14 +1,14 @@
 package com.bookmanager.infra
 
-import com.bookmanager.entity.AuthorEntity
-import com.bookmanager.entity.AuthorId
-import com.bookmanager.entity.AuthorSchema
-import com.bookmanager.entity.NewAuthorEntity
+import com.bookmanager.domain.entity.AuthorEntity
+import com.bookmanager.domain.entity.AuthorId
+import com.bookmanager.domain.entity.AuthorSchema
+import com.bookmanager.domain.entity.NewAuthorEntity
 import com.bookmanager.infra.exception.VersionConflictException
 import com.bookmanager.jooq.Tables.AUTHOR
-import com.bookmanager.port.IAuthorRepository
-import com.bookmanager.vo.BirthDate
-import com.bookmanager.vo.Version
+import com.bookmanager.domain.port.IAuthorRepository
+import com.bookmanager.domain.vo.BirthDate
+import com.bookmanager.domain.vo.Version
 import org.jooq.DSLContext
 import org.jooq.impl.DSL.noCondition
 import org.springframework.stereotype.Repository

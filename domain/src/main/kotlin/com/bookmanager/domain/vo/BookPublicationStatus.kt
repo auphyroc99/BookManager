@@ -1,4 +1,4 @@
-package com.bookmanager.vo
+package com.bookmanager.domain.vo
 
 enum class BookPublicationStatus {
     NOT_PUBLISHED,

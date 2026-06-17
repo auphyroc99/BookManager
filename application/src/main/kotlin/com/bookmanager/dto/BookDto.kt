@@ -1,6 +1,6 @@
 package com.bookmanager.dto
 
-import com.bookmanager.entity.BookEntity
+import com.bookmanager.domain.entity.BookEntity
 
 data class BookDto(
     val id: Long,

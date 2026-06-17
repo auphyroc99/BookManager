@@ -4,17 +4,17 @@ import com.bookmanager.command.RegisterBookCommand
 import com.bookmanager.command.UpdateBookCommand
 import com.bookmanager.dto.BookDto
 import com.bookmanager.dto.BookDto.Companion.toDto
-import com.bookmanager.entity.NewBookEntity
+import com.bookmanager.domain.entity.NewBookEntity
 import com.bookmanager.exception.BookNotFoundException
 import com.bookmanager.exception.OptimisticLockException
 import com.bookmanager.infra.exception.VersionConflictException
 import com.bookmanager.param.SearchBooksParam
 import com.bookmanager.port.IBookAppService
-import com.bookmanager.port.IBookQueryService
-import com.bookmanager.port.IBookRepository
-import com.bookmanager.vo.Authors
-import com.bookmanager.vo.BookPublicationStatus
-import com.bookmanager.vo.Price
+import com.bookmanager.domain.port.IBookQueryService
+import com.bookmanager.domain.port.IBookRepository
+import com.bookmanager.domain.vo.Authors
+import com.bookmanager.domain.vo.BookPublicationStatus
+import com.bookmanager.domain.vo.Price
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 

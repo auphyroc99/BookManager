@@ -1,23 +1,23 @@
-package com.bookmanager.vo
+package com.bookmanager.domain.vo
 
-import com.bookmanager.vo.Price
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import java.time.LocalDate
 
-internal class PriceTest {
+internal class BirthDateTest {
     @Test
-    fun valueOfPriceMustBeNonNegative() {
+    fun dateOfBirthDateMustBeDateInThePast() {
         // given
-        val negativePrice = -1
+        val dateInTheFuture = LocalDate.of(9999, 12, 31)
 
         // when
         // then
         val exception = assertThrows<IllegalArgumentException> {
-            Price(negativePrice)
+            BirthDate(dateInTheFuture)
         }
         assertThat(exception)
             .extracting { it.message }
-            .isEqualTo("`value` of `Price` must be a non-negative integer. `value`: $negativePrice.")
+            .isEqualTo("`date` of `BirthDate` must be before current date. `date`: $dateInTheFuture.")
     }
 }

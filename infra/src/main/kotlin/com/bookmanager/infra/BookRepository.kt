@@ -1,18 +1,18 @@
 package com.bookmanager.infra
 
-import com.bookmanager.entity.BookEntity
-import com.bookmanager.entity.BookId
-import com.bookmanager.entity.BookSchema
-import com.bookmanager.entity.NewBookEntity
+import com.bookmanager.domain.entity.BookEntity
+import com.bookmanager.domain.entity.BookId
+import com.bookmanager.domain.entity.BookSchema
+import com.bookmanager.domain.entity.NewBookEntity
 import com.bookmanager.jooq.Tables.BOOK
 import com.bookmanager.jooq.Tables.BOOK_AUTHOR
 import com.bookmanager.jooq.enums.BookPublicationStatusCode
 import com.bookmanager.jooq.tables.records.BookAuthorRecord
-import com.bookmanager.port.IBookRepository
-import com.bookmanager.vo.Authors
-import com.bookmanager.vo.BookPublicationStatus
-import com.bookmanager.vo.Price
-import com.bookmanager.vo.Version
+import com.bookmanager.domain.port.IBookRepository
+import com.bookmanager.domain.vo.Authors
+import com.bookmanager.domain.vo.BookPublicationStatus
+import com.bookmanager.domain.vo.Price
+import com.bookmanager.domain.vo.Version
 import org.jooq.DSLContext
 import org.jooq.impl.DSL.noCondition
 import org.springframework.stereotype.Repository

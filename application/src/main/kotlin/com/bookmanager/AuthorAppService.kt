@@ -4,14 +4,14 @@ import com.bookmanager.command.RegisterAuthorCommand
 import com.bookmanager.command.UpdateAuthorCommand
 import com.bookmanager.dto.AuthorDto
 import com.bookmanager.dto.AuthorDto.Companion.toDto
-import com.bookmanager.entity.AuthorId
-import com.bookmanager.entity.NewAuthorEntity
+import com.bookmanager.domain.entity.AuthorId
+import com.bookmanager.domain.entity.NewAuthorEntity
 import com.bookmanager.exception.AuthorNotFoundException
 import com.bookmanager.exception.OptimisticLockException
 import com.bookmanager.infra.exception.VersionConflictException
 import com.bookmanager.port.IAuthorAppService
-import com.bookmanager.port.IAuthorRepository
-import com.bookmanager.vo.BirthDate
+import com.bookmanager.domain.port.IAuthorRepository
+import com.bookmanager.domain.vo.BirthDate
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 

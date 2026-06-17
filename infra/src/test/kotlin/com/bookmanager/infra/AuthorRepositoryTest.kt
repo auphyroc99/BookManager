@@ -1,9 +1,9 @@
 package com.bookmanager.infra
 
-import com.bookmanager.entity.NewAuthorEntity
-import com.bookmanager.port.IAuthorRepository
-import com.bookmanager.vo.BirthDate
-import com.bookmanager.vo.Version
+import com.bookmanager.domain.entity.NewAuthorEntity
+import com.bookmanager.domain.port.IAuthorRepository
+import com.bookmanager.domain.vo.BirthDate
+import com.bookmanager.domain.vo.Version
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

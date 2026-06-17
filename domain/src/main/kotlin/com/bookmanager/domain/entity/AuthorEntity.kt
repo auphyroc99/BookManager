@@ -1,7 +1,7 @@
-package com.bookmanager.entity
+package com.bookmanager.domain.entity
 
-import com.bookmanager.vo.BirthDate
-import com.bookmanager.vo.Version
+import com.bookmanager.domain.vo.BirthDate
+import com.bookmanager.domain.vo.Version
 
 sealed interface AuthorSchema {
     val name: String

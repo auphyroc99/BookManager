@@ -1,6 +1,6 @@
 package com.bookmanager.dto
 
-import com.bookmanager.entity.AuthorEntity
+import com.bookmanager.domain.entity.AuthorEntity
 import java.time.LocalDate
 
 data class AuthorDto(

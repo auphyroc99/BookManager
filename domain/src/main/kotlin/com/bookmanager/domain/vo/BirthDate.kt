@@ -1,4 +1,4 @@
-package com.bookmanager.vo
+package com.bookmanager.domain.vo
 
 import java.time.LocalDate
 

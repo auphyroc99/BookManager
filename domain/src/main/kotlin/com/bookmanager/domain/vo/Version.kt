@@ -1,4 +1,4 @@
-package com.bookmanager.vo
+package com.bookmanager.domain.vo
 
 data class Version(
     val value: Int,

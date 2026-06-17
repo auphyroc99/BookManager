@@ -1,9 +1,9 @@
-package com.bookmanager.entity
+package com.bookmanager.domain.entity
 
-import com.bookmanager.vo.Authors
-import com.bookmanager.vo.BookPublicationStatus
-import com.bookmanager.vo.Price
-import com.bookmanager.vo.Version
+import com.bookmanager.domain.vo.Authors
+import com.bookmanager.domain.vo.BookPublicationStatus
+import com.bookmanager.domain.vo.Price
+import com.bookmanager.domain.vo.Version
 
 sealed interface BookSchema {
     val title: String

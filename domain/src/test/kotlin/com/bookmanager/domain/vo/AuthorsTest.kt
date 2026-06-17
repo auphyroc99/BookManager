@@ -1,7 +1,6 @@
-package com.bookmanager.vo
+package com.bookmanager.domain.vo
 
-import com.bookmanager.entity.AuthorId
-import com.bookmanager.vo.Authors
+import com.bookmanager.domain.entity.AuthorId
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows

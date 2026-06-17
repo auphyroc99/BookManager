@@ -1,6 +1,6 @@
-package com.bookmanager.vo
+package com.bookmanager.domain.vo
 
-import com.bookmanager.entity.AuthorId
+import com.bookmanager.domain.entity.AuthorId
 
 class Authors private constructor(
     val authorIds: List<AuthorId>,
