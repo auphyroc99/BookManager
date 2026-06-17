@@ -1,4 +1,4 @@
-package vo
+package com.bookmanager.vo
 
 import com.bookmanager.vo.Price
 import org.assertj.core.api.Assertions.assertThat

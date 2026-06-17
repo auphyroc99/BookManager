@@ -1,4 +1,4 @@
-package vo
+package com.bookmanager.vo
 
 import com.bookmanager.entity.AuthorId
 import com.bookmanager.vo.Authors

@@ -1,4 +1,4 @@
-package entity
+package com.bookmanager.entity
 
 import com.bookmanager.entity.BookEntity
 import com.bookmanager.entity.NewBookEntity
