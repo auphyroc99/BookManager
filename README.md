@@ -67,7 +67,7 @@ docker compose --profile rebuild up -d
 |---------|--------------|------|
 | POST | `/books` | 新しい書籍を登録 |
 | PUT | `/books` | 書籍情報を更新 |
-| PUT | `/books/publish/{id}` | 書籍を公開状態に更新 |
+| POST | `/books/publish` | 書籍を公開状態に更新 |
 | GET | `/books/{id}` | 指定IDの書籍を取得 |
 | POST | `/books/search` | 書籍を検索条件に基づいて検索 |
 
