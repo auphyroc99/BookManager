@@ -10,8 +10,10 @@ import com.bookmanager.application.exception.AuthorNotFoundException
 import com.bookmanager.application.exception.OptimisticLockException
 import com.bookmanager.infra.exception.VersionConflictException
 import com.bookmanager.application.port.IAuthorAppService
+import com.bookmanager.domain.entity.AuthorEntity
 import com.bookmanager.domain.port.IAuthorRepository
 import com.bookmanager.domain.vo.BirthDate
+import com.bookmanager.domain.vo.Version
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -31,6 +33,7 @@ internal class AuthorAppService(
     @Transactional
     override fun updateAuthor(command: UpdateAuthorCommand): AuthorDto =
         authorRepository.findById(command.id)
+            ?.checkVersion(Version(command.version))
             ?.updateName(command.name)
             ?.updateBirthDate(BirthDate(command.birthDate))
             ?.let {
@@ -54,4 +57,12 @@ internal class AuthorAppService(
 
     override fun fetchAuthorById(id: AuthorId): AuthorDto? =
         authorRepository.findById(id)?.toDto()
+
+    companion object {
+        private fun AuthorEntity.checkVersion(expectedVersion: Version): AuthorEntity =
+            takeIf { version == expectedVersion }
+                ?: throw OptimisticLockException(
+                    "Expected version=$expectedVersion, actual version=$version"
+                )
+    }
 }

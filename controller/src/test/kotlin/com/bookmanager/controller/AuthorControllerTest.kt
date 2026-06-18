@@ -52,6 +52,7 @@ internal class AuthorControllerTest {
             .andExpect(jsonPath("$.id").value(AUTHOR_ID))
             .andExpect(jsonPath("$.name").value(NAME))
             .andExpect(jsonPath("$.birthDate").value(birthDate.toString()))
+            .andExpect(jsonPath("$.version").value(VERSION))
     }
 
     @Test
@@ -83,7 +84,9 @@ internal class AuthorControllerTest {
         // given
         `when`(
             authorAppService.updateAuthor(any())
-        ).thenReturn(authorDto)
+        ).thenReturn(
+            authorDto.copy(version = VERSION + 1)
+        )
 
         // when
         // then
@@ -105,6 +108,7 @@ internal class AuthorControllerTest {
             .andExpect(jsonPath("$.id").value(AUTHOR_ID))
             .andExpect(jsonPath("$.name").value(NAME))
             .andExpect(jsonPath("$.birthDate").value(birthDate.toString()))
+            .andExpect(jsonPath("$.version").value(VERSION + 1))
     }
 
     @Test
@@ -216,12 +220,14 @@ internal class AuthorControllerTest {
     companion object {
         private const val AUTHOR_ID = 100L
         private const val NAME = "Brian Kennighan"
+        private const val VERSION = 0
         private val birthDate = LocalDate.parse("1942-01-01")
 
         private val authorDto = AuthorDto(
             id = AUTHOR_ID,
             name = NAME,
             birthDate = birthDate,
+            version = VERSION,
         )
     }
 }

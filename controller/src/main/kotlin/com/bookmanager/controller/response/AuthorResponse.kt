@@ -7,12 +7,14 @@ data class AuthorResponse(
     val id: Long,
     val name: String,
     val birthDate: LocalDate,
+    val version: Int,
 ) {
     companion object {
         fun AuthorDto.toResponse(): AuthorResponse = AuthorResponse(
             id = id,
             name = name,
             birthDate = birthDate,
+            version = version,
         )
     }
 }

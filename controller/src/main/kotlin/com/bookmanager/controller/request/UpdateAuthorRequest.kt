@@ -7,11 +7,13 @@ data class UpdateAuthorRequest(
     val id: Long,
     val name: String,
     val birthDate: LocalDate,
+    val version: Int,
 ) {
     fun toCommand(): UpdateAuthorCommand =
         UpdateAuthorCommand(
             id = id,
             name = name,
             birthDate = birthDate,
+            version = version,
         )
 }

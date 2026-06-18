@@ -2,9 +2,9 @@ package com.bookmanager.application.command
 
 import java.time.LocalDate
 
-data class UpdateAuthorCommand
-    (
+data class UpdateAuthorCommand(
     val id: Long,
     val name: String,
     val birthDate: LocalDate,
+    val version: Int,
 )

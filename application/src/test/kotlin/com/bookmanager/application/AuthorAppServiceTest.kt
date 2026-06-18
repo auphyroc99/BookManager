@@ -59,7 +59,12 @@ internal class AuthorAppServiceTest : BaseAppServiceTest() {
                 authorEntityUpdated
             )
         ).thenReturn(
-            authorEntityUpdated
+            AuthorEntity(
+                id = authorEntityUpdated.id,
+                name = authorEntityUpdated.name,
+                birthDate = authorEntityUpdated.birthDate,
+                version = authorEntityUpdated.version.next(),
+            )
         )
 
         // when
@@ -68,12 +73,18 @@ internal class AuthorAppServiceTest : BaseAppServiceTest() {
                 id = AUTHOR_ID,
                 name = NAME_UPDATED,
                 birthDate = birthDate,
+                version = VERSION,
             )
         )
 
         // then
         assertThat(actual)
-            .isEqualTo(authorDto.copy(name = NAME_UPDATED))
+            .isEqualTo(
+                authorDto.copy(
+                    name = NAME_UPDATED,
+                    version = VERSION + 1,
+                )
+            )
         verify(authorRepository, times(1))
             .findById(AUTHOR_ID)
         verify(authorRepository, times(1))
@@ -95,6 +106,7 @@ internal class AuthorAppServiceTest : BaseAppServiceTest() {
                     id = AUTHOR_ID,
                     name = NAME_UPDATED,
                     birthDate = birthDate,
+                    version = VERSION,
                 )
             )
         }
@@ -108,6 +120,7 @@ internal class AuthorAppServiceTest : BaseAppServiceTest() {
         private const val AUTHOR_ID = 100L
         private const val NAME = "Brian Kennighan"
         private const val NAME_UPDATED = "Brian Kennighan Updated"
+        private const val VERSION = 0
         private val birthDate = LocalDate.parse("1942-01-01")
 
         private val newAuthorEntity = NewAuthorEntity(
@@ -126,6 +139,7 @@ internal class AuthorAppServiceTest : BaseAppServiceTest() {
             id = AUTHOR_ID,
             name = NAME,
             birthDate = birthDate,
+            version = 0,
         )
     }
 }
