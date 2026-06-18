@@ -7,6 +7,7 @@ data class UpdateBookRequest(
     val title: String,
     val price: Int,
     val authorIds: List<Long>,
+    val version: Int,
 ) {
     fun toCommand(): UpdateBookCommand =
         UpdateBookCommand(
@@ -14,5 +15,6 @@ data class UpdateBookRequest(
             title = this.title,
             price = this.price,
             authorIds = this.authorIds,
+            version = this.version,
         )
 }

@@ -8,6 +8,7 @@ data class BookResponse(
     val price: Int,
     val authorIds: List<Long>,
     val publicationStatus: String,
+    val version: Int,
 ) {
     companion object {
         fun BookDto.toResponse() = BookResponse(
@@ -16,6 +17,7 @@ data class BookResponse(
             price = this.price,
             authorIds = this.authorIds,
             publicationStatus = this.publicationStatus,
+            version = this. version,
         )
     }
 }

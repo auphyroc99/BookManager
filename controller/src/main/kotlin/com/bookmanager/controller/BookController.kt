@@ -6,6 +6,7 @@ import com.bookmanager.application.port.IBookAppService
 import com.bookmanager.controller.exception.BadRequestException
 import com.bookmanager.controller.exception.ConflictException
 import com.bookmanager.controller.exception.NotFoundException
+import com.bookmanager.controller.request.PublishBookRequest
 import com.bookmanager.controller.request.RegisterBookRequest
 import com.bookmanager.controller.request.SearchBooksRequest
 import com.bookmanager.controller.request.UpdateBookRequest
@@ -81,11 +82,11 @@ internal class BookController(
             }
         )
 
-    @PutMapping("/publish/{id}")
-    fun publishBook(@PathVariable id: Long): ResponseEntity<BookResponse> =
+    @PostMapping("/publish")
+    fun publishBook(@RequestBody request: PublishBookRequest): ResponseEntity<BookResponse> =
         runCatching {
             bookAppService
-                .publishBook(id)
+                .publishBook(request.toCommand())
         }.fold(
             onSuccess = { dto ->
                 dto.toResponse()
